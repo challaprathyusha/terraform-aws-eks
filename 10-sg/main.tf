@@ -1,62 +1,62 @@
 module "db" {
-  source = "../../terraform-aws-securitygroup"
+  source = "git::https://github.com/challaprathyusha/terraform-aws-sg-module.git?ref=main"
   project_name = var.project_name
   environment = var.environment
-  sg_description = "SG for DB MySQL Instances"
+  sg_desc = "SG for DB MySQL Instances"
   vpc_id = data.aws_ssm_parameter.vpc_id.value
   common_tags = var.common_tags
   sg_name = "db"
 }
 
 module "ingress" {
-  source         = "git::https://github.com/daws-76s/terraform-aws-security-group.git?ref=main"
+  source         = "git::https://github.com/challaprathyusha/terraform-aws-sg-module.git?ref=main"
   project_name = var.project_name
   environment = var.environment
-  sg_description = "SG for Ingress controller"
+  sg_desc = "SG for Ingress controller"
   vpc_id = data.aws_ssm_parameter.vpc_id.value
   common_tags = var.common_tags
   sg_name = "ingress"
 }
 
 module "cluster" {
-  source         = "git::https://github.com/daws-76s/terraform-aws-security-group.git?ref=main"
+  source         = "git::https://github.com/challaprathyusha/terraform-aws-sg-module.git?ref=main"
   project_name = var.project_name
   environment = var.environment
-  sg_description = "SG for EKS Control plane"
+  sg_desc = "SG for EKS Control plane"
   vpc_id = data.aws_ssm_parameter.vpc_id.value
   common_tags = var.common_tags
   sg_name = "eks-control-plane"
 }
 
 module "node" {
-  source         = "git::https://github.com/daws-76s/terraform-aws-security-group.git?ref=main"
+  source         = "git::https://github.com/challaprathyusha/terraform-aws-sg-module.git?ref=main"
   project_name = var.project_name
   environment = var.environment
-  sg_description = "SG for EKS node"
+  sg_desc = "SG for EKS node"
   vpc_id = data.aws_ssm_parameter.vpc_id.value
   common_tags = var.common_tags
   sg_name = "eks-node"
 }
 
 module "bastion" {
-  source = "../../terraform-aws-securitygroup"
+  source = "git::https://github.com/challaprathyusha/terraform-aws-sg-module.git?ref=main"
   project_name = var.project_name
   environment = var.environment
-  sg_description = "SG for Bastion Instances"
+  sg_desc = "SG for Bastion Instances"
   vpc_id = data.aws_ssm_parameter.vpc_id.value
   common_tags = var.common_tags
   sg_name = "bastion"
 }
 
 module "vpn" {
-  source = "../../terraform-aws-securitygroup"
+  source = "git::https://github.com/challaprathyusha/terraform-aws-sg-module.git?ref=main"
   project_name = var.project_name
   environment = var.environment
-  sg_description = "SG for VPN Instances"
+  sg_desc = "SG for VPN Instances"
   vpc_id = data.aws_ssm_parameter.vpc_id.value
   common_tags = var.common_tags
   sg_name = "vpn"
-  ingress_rules = var.vpn_sg_rules
+  inbound_rules = var.vpn_sg_rules
 }
 
 resource "aws_security_group_rule" "bastion_public" {

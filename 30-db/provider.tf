@@ -5,11 +5,11 @@ terraform {
       version = "5.48.0"
     }
   }
-  backend "s3" {
-    bucket = "daws78s-remote-state"
-    key    = "expense-dev-db"
+ backend "s3" {
+    bucket = "remote-state-prathyu-bucket"
+    key    = "terraform-aws-eks-DB"
     region = "us-east-1"
-    dynamodb_table = "daws78s-locking"
+    dynamodb_table  = "s3-remote-state-locking"
   }
 }
 
